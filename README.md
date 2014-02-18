@@ -4,8 +4,8 @@ GEOKEY JavaScript Framework
 Full Georgian Keyboard ( მხედრული/Mkhedruli, ასომთავრული/Asomtavruli, ნუსხური/Nuskhuri )
 -------------------------------------------------------------------------------------
 
-Framework Supports All Georgian Alphabets From Ancient Times.
+<b>Framework Supports All Georgian Alphabets From Ancient Times.</b>
 
-Besides Writing With Desired Alphabet, Text Conversion Is Supported As Well. Enjoy ...
+<b>In Modern Alphabet(Mkhedruli) Ancient Characters Are Inclucded.</b>
 
-NOTE: In Modern Alphabet(Mkhedruli) Ancient Characters Are Inclucded !
+<b>Besides Writing With Desired Alphabet, Text Conversion Is Supported As Well. Enjoy ...</b>
