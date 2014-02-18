@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>GEORGIAN KEYBOARD Demonstration</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<style type="text/css">
+	html,body,div,table {
+		margin: 0;
+		padding: 0;
+	}
+	
+	body{
+		margin: 0 auto;
+		background-color: silver;
+	}
+	
+	.welcome{
+		text-align: center;
+		color: white;
+	}
+	
+	.welcome span{
+		font-size: 1.2em;
+	}
+	
+	.cont {
+		margin: 50px auto;
+		padding: 20px;
+		width: 550px;
+		background-color: #AFAFAD;
+		border-radius: 10px;
+	}
+	
+	.tb {
+		margin: 0 auto;
+		width: 470px;
+		background-color: silver;
+		border-radius: 8px;
+	}
+	
+	.tb td:first-child {
+		vertical-align: top;
+		width: 20px;
+	}
+	
+	.tb_conv{
+		margin: 0 auto;
+		width: 450px;
+		background-color: silver;
+		border-radius: 8px;
+	}
+	
+	.tb_conv td{
+		width: 150px;
+		text-align: center;
+	}
+	
+	span.title{
+		position: relative;
+		left: 12px;
+		font-size: small;
+		color: white;
+	}
+	</style>
+</head>
+<body>
+
+<div class="cont">
+	<div class="welcome">
+		<span>Georgian Keyboard / ქართული კლავიატურა</span>
+	</div>
+	<br>
+	<span class="title">Georgian ( მხედრული / Mkhedruli )</span>
+	<br><br>
+	<table class="tb">
+		<tr>
+			<td><input type="checkbox" id="a" checked="checked"></td>
+			<td><textarea cols="60" rows="8" id="a_txt"></textarea></td>
+		</tr>
+	</table>
+	<br>
+	<span class="title">Georgian ( ასომთავრული / Asomtavruli )</span>
+	<br><br>
+	<table class="tb">
+		<tr>
+			<td><input type="checkbox" id="b" checked="checked"></td>
+			<td><textarea cols="60" rows="8" id="b_txt"></textarea></td>
+		</tr>
+	</table>
+	<br>
+	<span class="title">Georgian ( ნუსხური / Nuskhuri )</span>
+	<br><br>
+	<table class="tb">
+		<tr>
+			<td><input type="checkbox" id="c" checked="checked"></td>
+			<td><textarea cols="60" rows="8" id="c_txt"></textarea></td>
+		</tr>
+	</table>
+	<br>
+	<table class="tb_conv">
+		<tr>
+			<td><select id="from"><option value="1">მხედრული</option><option value="2">ႠႱႭႫႧႠႥႰႳႪႨ</option><option value="3">ⴌⴓⴑⴞⴓⴐⴈ</option><option value="0">English(Characters)</option></select></td>
+			<td><input type="button" id="butt" value="Transcript"></td>
+			<td><select id="to"><option value="1">მხედრული</option><option value="2">ႠႱႭႫႧႠႥႰႳႪႨ</option><option value="3">ⴌⴓⴑⴞⴓⴐⴈ</option></select></td>
+		</tr>
+		<tr>
+			<td colspan="3"><textarea cols="60" rows="5" id="convert"></textarea></td>
+		</tr>
+		<tr>
+			<td colspan="3"><br></td>
+		</tr>
+		<tr>
+			<td colspan="3"><div id="result" style="color: white;"></div></td>
+		</tr>
+		<tr>
+			<td colspan="3"><br></td>
+		</tr>
+	</table>
+</div>
+
+<script type="text/javascript" src="./GEOKEY_MIN.js"></script>
+<script type="text/javascript">
+var instance = new GEOKEY({"check" : true , "chbox" : "a", "field" : "a_txt" , "type" : 1});
+
+new GEOKEY({"check" : true , "chbox" : "b" , "field" : "b_txt" , "type" : 2});
+
+new GEOKEY({"check" : true , "chbox" : "c" , "field" : "c_txt" , "type" : 3});
+
+instance.on(document.getElementById("butt"),"click",function(){ // using instance functions
+	this.transcript(document.getElementById("convert").value,parseInt(document.getElementById("from").value),parseInt(document.getElementById("to").value),function(result){
+		document.getElementById("result").innerHTML = result;
+	});
+});
+
+console.log(instance.info()); // log basic information of instance
+</script>
+
+</body>
+</html>
