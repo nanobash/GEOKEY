@@ -126,13 +126,13 @@ new GEOKEY({"check" : true , "chbox" : "b" , "field" : "b_txt" , "type" : 2});
 
 new GEOKEY({"check" : true , "chbox" : "c" , "field" : "c_txt" , "type" : 3});
 
-instance.on(document.getElementById("butt"),"click",function(){ // using instance functions
+instance.on(document.getElementById("butt"),"click",function(){
 	this.transcript(document.getElementById("convert").value,parseInt(document.getElementById("from").value),parseInt(document.getElementById("to").value),function(result){
 		document.getElementById("result").innerHTML = result;
 	});
 });
 
-console.log(instance.info()); // log basic information of instance
+console.log(instance.info());
 </script>
 
 </body>
