@@ -1,5 +1,5 @@
 Georgian Keyboard 1.0 Instructions
-------------------------------
+----------------------------------
 
 Terms Of Initialization
 	
