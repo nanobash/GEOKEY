@@ -6,6 +6,6 @@ Full Georgian Keyboard ( მხედრული/Mkhedruli, ასომთა�
 
 <b>Framework Supports All Georgian Alphabets From Ancient Times.</b>
 
-<b>In Modern Alphabet(Mkhedruli) Ancient Characters Are Inclucded.</b>
+<b>In Modern Alphabet(Mkhedruli) Ancient Characters Are Included.</b>
 
 <b>Besides Writing With Desired Alphabet, Text Conversion Is Supported As Well. Enjoy ...</b>
