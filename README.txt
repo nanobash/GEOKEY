@@ -15,7 +15,7 @@ Terms Of Initialization
 		type() NOTE*: Returns type of an parameter
 		info() NOTE*: Returns basic information on instance
 	
-	NOTE*: Argument Must Be An Object As Shown Below
+	NOTE*: Argument Must Be An Object As Is Shown Below
 	
 	For Example:
 		new GEOKEY({"check" : true , "chbox" : "a" , "field" : "a_txt" , "type" : 1});
