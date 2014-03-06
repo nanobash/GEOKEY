@@ -26,6 +26,7 @@
  */
 
 ;(function(){
+	"use strict";
 	
 	var GEOKEY = window.GEOKEY = function(object) {
 		
