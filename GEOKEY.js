@@ -197,20 +197,18 @@
 		}
 		
 		function execute() {
-			var _capsCount = 2;
+			var capsLock = false;
 			
 			_this.on(document.getElementById(field),"keydown",function(e){
-				var key = keyNum(e) , origin = String.fromCharCode(key) , index = 0 , capsLock = false , shift = e.shiftKey ? e.shiftKey : ((key === 16) ? true : false) , ctrl = e.ctrlKey ? e.ctrlKey : ((key === 17) ? true : false);
+				var key = keyNum(e) , origin = String.fromCharCode(key) , index = 0 , shift = e.shiftKey ? e.shiftKey : ((key === 16) ? true : false) , ctrl = e.ctrlKey ? e.ctrlKey : ((key === 17) ? true : false);
 				
 				if ( ctrl ) {
 					return;
 				}
 				
 				if ( key === 20 ) {
-					_capsCount++;
+					( capsLock ) ? capsLock = false : capsLock = true;
 				}
-				
-				( _capsCount % 2 == 0 ) ? capsLock = false : capsLock = true;
 				
 				if ( key === 192 ) {
 	  				if ( check ) {
