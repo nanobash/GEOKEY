@@ -11,7 +11,7 @@ Terms Of Initialization
 	
 	Functions On Instances
 		on(element,event,handler)
-		transcript(text,from,to,handler) NOTE*: from parameter could be 0/1/2/3, to parameter could be 1/2/3
+		transcript(text,from,to,handler) NOTE*: from parameter must be 0/1/2/3/4, to parameter must be 1/2/3
 		type() NOTE*: Returns type of an parameter
 		info() NOTE*: Returns basic information on instance
 	
@@ -19,3 +19,6 @@ Terms Of Initialization
 	
 	For Example:
 		new GEOKEY({"check" : true , "chbox" : "a" , "field" : "a_txt" , "type" : 1});
+		
+	For multiple forms:
+		new GEOKEY({"check" : true , "chbox" : "a" , "field" : ["a_txt", "b_txt"] , "type" : 1});
