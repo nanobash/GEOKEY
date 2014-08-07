@@ -101,7 +101,7 @@
 		<tr>
 			<td><select id="from"><option value="1">მხედრული</option><option value="2">ႠႱႭႫႧႠႥႰႳႪႨ</option><option value="3">ⴌⴓⴑⴞⴓⴐⴈ</option><option value="0">English(Characters)</option></select></td>
 			<td><input type="button" id="butt" value="Transcript"></td>
-			<td><select id="to"><option value="1">მხედრული</option><option value="2">ႠႱႭႫႧႠႥႰႳႪႨ</option><option value="3">ⴌⴓⴑⴞⴓⴐⴈ</option></select></td>
+			<td><select id="to"><option value="1">მხედრული</option><option value="2">ႠႱႭႫႧႠႥႰႳႪႨ</option><option value="3">ⴌⴓⴑⴞⴓⴐⴈ</option><option value="4">English(Characters)</option></select></td>
 		</tr>
 		<tr>
 			<td colspan="3"><textarea cols="60" rows="5" id="convert"></textarea></td>
@@ -126,7 +126,7 @@ new GEOKEY({"check" : true , "chbox" : "b" , "field" : "b_txt" , "type" : 2});
 
 new GEOKEY({"check" : true , "chbox" : "c" , "field" : "c_txt" , "type" : 3});
 
-instance.on(document.getElementById("butt"),"click",function(){
+instance.on(document.getElementById("butt"),"click",function() {
 	this.transcript(document.getElementById("convert").value,parseInt(document.getElementById("from").value),parseInt(document.getElementById("to").value),function(result){
 		document.getElementById("result").innerHTML = result;
 	});
