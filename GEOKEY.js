@@ -36,6 +36,7 @@
 			"TransConfig" : "Text,0/1/2/3,1/2/3,Function(Results)\n\nWhere :\n\n0 : English\n1 : Mkhedruli\n2 : Asomtavruli\n3 : Nuskhuri",
 			"success" : "Framework Has Been Successfully Loaded !"
 		};
+
 		var _this = this, check = null, chbox = null, field = null, type = null, chars = {
 			1 : {
 				"title" : "Mkhedruli",
@@ -63,6 +64,7 @@
 				return arr;
 			}
 		};
+
 		function bind(context, fn) {
 			return function() {
 				return fn.apply(context, arguments);
@@ -71,13 +73,10 @@
 
 		function transcriptCore(text, from, to, fn) {
 			var result = "", index = 0;
-
 			if (to == 4) {
-				if (_this.type(chars[from]) === "undefined") {
-					from = 1;
-				}
+				from = (_this.type(chars[from]) === "undefined") ? 1 : from;
 				for (var i = 0; i < text.length; i++) {
-					var ch = chars[from]["alphabet"][String.charCodeAt(text[i]) - chars[from]["level"]];
+					var ch = chars[from]["alphabet"][text[i].charCodeAt(0) - chars[from]["level"]];
 					result += (_this.type(ch) !== "undefined" ) ? ch : text[i];
 				}
 				fn.call(_this, result);
@@ -90,10 +89,10 @@
 			fn.call(_this, result);
 		}
 
-
 		this.type = function() {
 			return /^.\w+\s(\w+).$/.exec(Object.prototype.toString.call(arguments[0]))[1].toLowerCase();
 		};
+
 		this.transcript = function(text, from, to, fn) {
 			if (arguments.length !== 4 || this.type(text) !== "string" || this.type(from) !== "number" || from < 0 || from > 3 || this.type(to) !== "number" || to < 1 || to > 4 || this.type(fn) !== "function") {
 				notify(msg.TransConfig);
@@ -112,6 +111,7 @@
 				return transcriptCore(text, 0, to, fn);
 			}
 		};
+
 		this.on = function(elem, type, fn) {
 			if (elem.addEventListener) {
 				elem.addEventListener(type, bind(this, fn), false);
@@ -119,6 +119,7 @@
 				elem.attachEvent("on" + type, bind(this, fn));
 			}
 		};
+
 		this.info = function() {
 			return {
 				"title" : chars[type]["title"],
@@ -126,6 +127,7 @@
 				"type" : type
 			};
 		};
+
 		function notify(msg) {
 			console.log(msg);
 			alert(msg);
@@ -200,37 +202,36 @@
 			if (_this.type(field) !== "array") {
 				field = [field];
 			}
-			for (var i = 0; i < field.length; i++)
-				(function(fieldId) {
-					_this.on(document.getElementById(fieldId), "keydown", function(e) {
-						var key = keyNum(e), origin = String.fromCharCode(key), index = 0, shift = e.shiftKey ? e.shiftKey : ((key === 16) ? true : false), ctrl = e.ctrlKey ? e.ctrlKey : ((key === 17) ? true : false);
-						if (ctrl) {
-							return;
-						}
-						if (key === 20) {
-							(capsLock ) ? capsLock = false : capsLock = true;
-						}
-						if (key === 192) {
-							if (check) {
-								e.preventDefault();
-								(document.getElementById(chbox).checked ) ? document.getElementById(chbox).checked = false : document.getElementById(chbox).checked = true;
-							}
-						}
-						if (check && !document.getElementById(chbox).checked) {
-							return;
-						}
-						(shift || capsLock ) ? origin = origin.toUpperCase() : origin = origin.toLowerCase();
-						if (chars[type]["alphabet"].indexOf(origin) === -1) {
-							return;
-						}
-						index = chars[type]["alphabet"].indexOf(origin);
-						if (key >= 65 && key <= 90) {
-							e.preventDefault();
-							frameInto(String.fromCharCode(chars[type]["level"] + index), fieldId);
-						}
+			for (var i = 0; i < field.length; i++) (function(fieldId) {
+				_this.on(document.getElementById(fieldId), "keydown", function(e) {
+					var key = keyNum(e), origin = String.fromCharCode(key), index = 0, shift = e.shiftKey ? e.shiftKey : ((key === 16) ? true : false), ctrl = e.ctrlKey ? e.ctrlKey : ((key === 17) ? true : false);
+					if (ctrl) {
 						return;
-					});
-				})(field[i]);
+					}
+					if (key === 20) {
+						(capsLock ) ? capsLock = false : capsLock = true;
+					}
+					if (key === 192) {
+						if (check) {
+							e.preventDefault();
+							(document.getElementById(chbox).checked ) ? document.getElementById(chbox).checked = false : document.getElementById(chbox).checked = true;
+						}
+					}
+					if (check && !document.getElementById(chbox).checked) {
+						return;
+					}
+					(shift || capsLock ) ? origin = origin.toUpperCase() : origin = origin.toLowerCase();
+					if (chars[type]["alphabet"].indexOf(origin) === -1) {
+						return;
+					}
+					index = chars[type]["alphabet"].indexOf(origin);
+					if (key >= 65 && key <= 90) {
+						e.preventDefault();
+						frameInto(String.fromCharCode(chars[type]["level"] + index), fieldId);
+					}
+					return;
+				});
+			})(field[i]);
 		}
 
 		if (!assemble(object)) {
