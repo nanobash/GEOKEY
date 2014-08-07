@@ -27,9 +27,7 @@
 
 ;(function() {
 	"use strict";
-
 	var GEOKEY = window.GEOKEY = function(object) {
-
 		var msg = {
 			"config" : "Initialization\n{\n\t\"check\" : true/false (boolean),\n\t\"chbox\" : checkboxID (string),\n\t\"field\" : fieldID (string),\n\t\"type\" : 1/2/3 (integer)\n}",
 			"invBoxID" : "Invalid Checkbox ID Parameter ! !",
@@ -38,7 +36,6 @@
 			"TransConfig" : "Text,0/1/2/3,1/2/3,Function(Results)\n\nWhere :\n\n0 : English\n1 : Mkhedruli\n2 : Asomtavruli\n3 : Nuskhuri",
 			"success" : "Framework Has Been Successfully Loaded !"
 		};
-
 		var _this = this, check = null, chbox = null, field = null, type = null, chars = {
 			1 : {
 				"title" : "Mkhedruli",
@@ -66,7 +63,6 @@
 				return arr;
 			}
 		};
-
 		function bind(context, fn) {
 			return function() {
 				return fn.apply(context, arguments);
@@ -77,20 +73,20 @@
 			var result = "", index = 0;
 
 			if (to == 4) {
+				if (_this.type(chars[from]) === "undefined") {
+					from = 1;
+				}
 				for (var i = 0; i < text.length; i++) {
 					var ch = chars[from]["alphabet"][String.charCodeAt(text[i]) - chars[from]["level"]];
 					result += (_this.type(ch) !== "undefined" ) ? ch : text[i];
 				}
-
 				fn.call(_this, result);
 				return;
 			}
-
 			for (var i = 0; i < text.length; i++) {
 				(from !== 0 ) ? index = chars[4](from).indexOf(text[i]) : index = chars[to]["alphabet"].indexOf(text[i]);
 				(index === -1 ) ? result += text[i] : result += (String.fromCharCode(chars[to]["level"] + index));
 			}
-
 			fn.call(_this, result);
 		}
 
@@ -98,13 +94,11 @@
 		this.type = function() {
 			return /^.\w+\s(\w+).$/.exec(Object.prototype.toString.call(arguments[0]))[1].toLowerCase();
 		};
-
 		this.transcript = function(text, from, to, fn) {
 			if (arguments.length !== 4 || this.type(text) !== "string" || this.type(from) !== "number" || from < 0 || from > 3 || this.type(to) !== "number" || to < 1 || to > 4 || this.type(fn) !== "function") {
 				notify(msg.TransConfig);
 				return;
 			}
-
 			switch ( from ) {
 			case 1:
 				return transcriptCore(text, 1, to, fn);
@@ -118,7 +112,6 @@
 				return transcriptCore(text, 0, to, fn);
 			}
 		};
-
 		this.on = function(elem, type, fn) {
 			if (elem.addEventListener) {
 				elem.addEventListener(type, bind(this, fn), false);
@@ -126,7 +119,6 @@
 				elem.attachEvent("on" + type, bind(this, fn));
 			}
 		};
-
 		this.info = function() {
 			return {
 				"title" : chars[type]["title"],
@@ -134,7 +126,6 @@
 				"type" : type
 			};
 		};
-
 		function notify(msg) {
 			console.log(msg);
 			alert(msg);
@@ -145,31 +136,24 @@
 				notify(msg.config);
 				return false;
 			}
-
 			if (_this.type(object.check) !== "boolean") {
 				if (_this.type(object.check) !== "null") {
 					notify(msg.config);
 					return false;
 				}
 			}
-
 			check = object.check;
-
 			if (check !== null) {
 				if (_this.type(object.chbox) !== "string" || (_this.type(object.field) !== "string" && _this.type(object.field) !== "array")) {
-					alert('here');
 					notify(msg.config);
 					return false;
 				}
-
 				if (check && document.getElementById(object.chbox) === null) {
 					notify(msg.invBoxID);
 					return false;
 				}
-
 				chbox = object.chbox;
 			}
-
 			if (_this.type(object.field) === "string") {
 				if (document.getElementById(object.field) === null) {
 					notify(msg.invFieldID);
@@ -183,21 +167,16 @@
 					}
 				}
 			}
-
 			field = object.field;
-
 			if (_this.type(object.type) !== "number") {
 				notify(msg.config);
 				return false;
 			}
-
 			if (object.type < 1 || object.type > 3) {
 				notify(msg.invTypeNum);
 				return false;
 			}
-
 			type = object.type;
-
 			return true;
 		}
 
@@ -208,73 +187,55 @@
 
 		function frameInto(char, fieldId) {
 			var elem = document.getElementById(fieldId), pos = 0;
-
 			elem.focus();
-
 			if (elem.selectionStart) {
 				pos = elem.selectionStart;
 			}
-
 			elem.value = elem.value.substr(0, pos) + char + elem.value.substr(elem.selectionEnd);
-
 			elem.setSelectionRange(pos + char.length, pos + char.length);
 		}
 
 		function execute() {
 			var capsLock = false;
-
-			if ( _this.type(field) !== "array" ) {
+			if (_this.type(field) !== "array") {
 				field = [field];
 			}
-
-			for ( var i = 0; i < field.length; i++ ) (function(fieldId) {
-
-				_this.on(document.getElementById(fieldId), "keydown", function(e) {
-					var key = keyNum(e), origin = String.fromCharCode(key), index = 0, shift = e.shiftKey ? e.shiftKey : ((key === 16) ? true : false), ctrl = e.ctrlKey ? e.ctrlKey : ((key === 17) ? true : false);
-
-					if (ctrl) {
-						return;
-					}
-
-					if (key === 20) {
-						(capsLock ) ? capsLock = false : capsLock = true;
-					}
-
-					if (key === 192) {
-						if (check) {
-							e.preventDefault();
-							(document.getElementById(chbox).checked ) ? document.getElementById(chbox).checked = false : document.getElementById(chbox).checked = true;
+			for (var i = 0; i < field.length; i++)
+				(function(fieldId) {
+					_this.on(document.getElementById(fieldId), "keydown", function(e) {
+						var key = keyNum(e), origin = String.fromCharCode(key), index = 0, shift = e.shiftKey ? e.shiftKey : ((key === 16) ? true : false), ctrl = e.ctrlKey ? e.ctrlKey : ((key === 17) ? true : false);
+						if (ctrl) {
+							return;
 						}
-					}
-
-					if (check && !document.getElementById(chbox).checked) {
+						if (key === 20) {
+							(capsLock ) ? capsLock = false : capsLock = true;
+						}
+						if (key === 192) {
+							if (check) {
+								e.preventDefault();
+								(document.getElementById(chbox).checked ) ? document.getElementById(chbox).checked = false : document.getElementById(chbox).checked = true;
+							}
+						}
+						if (check && !document.getElementById(chbox).checked) {
+							return;
+						}
+						(shift || capsLock ) ? origin = origin.toUpperCase() : origin = origin.toLowerCase();
+						if (chars[type]["alphabet"].indexOf(origin) === -1) {
+							return;
+						}
+						index = chars[type]["alphabet"].indexOf(origin);
+						if (key >= 65 && key <= 90) {
+							e.preventDefault();
+							frameInto(String.fromCharCode(chars[type]["level"] + index), fieldId);
+						}
 						return;
-					}
-
-					(shift || capsLock ) ? origin = origin.toUpperCase() : origin = origin.toLowerCase();
-
-					if (chars[type]["alphabet"].indexOf(origin) === -1) {
-						return;
-					}
-
-					index = chars[type]["alphabet"].indexOf(origin);
-
-					if (key >= 65 && key <= 90) {
-						e.preventDefault();
-						frameInto(String.fromCharCode(chars[type]["level"] + index), fieldId);
-					}
-
-					return;
-				});
-
-			})(field[i]);
+					});
+				})(field[i]);
 		}
 
-		if ( !assemble(object) ) {
+		if (!assemble(object)) {
 			return;
 		}
-
 		execute();
 	};
-
 })();
