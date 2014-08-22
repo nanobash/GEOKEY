@@ -78,16 +78,20 @@
 
 			if (to == 4) {
 				from = (_this.type(chars[from]) === "undefined") ? 1 : from;
+
 				for (var i = 0; i < text.length; i++) {
 					var ch = chars[from]["alphabet"][text[i].charCodeAt(0) - chars[from]["level"]];
 					result += (_this.type(ch) !== "undefined" ) ? ch : text[i];
 				}
+
 				fn.call(_this, result);
+
 				return;
 			}
 
 			for (var i = 0; i < text.length; i++) {
 				(from !== 0 ) ? index = chars[4](from).indexOf(text[i]) : index = chars[to]["alphabet"].indexOf(text[i]);
+
 				(index === -1 ) ? result += text[i] : result += (String.fromCharCode(chars[to]["level"] + index));
 			}
 
@@ -160,10 +164,12 @@
 					notify(msg.config);
 					return false;
 				}
+
 				if (check && document.getElementById(object.chbox) === null) {
 					notify(msg.invBoxID);
 					return false;
 				}
+
 				chbox = object.chbox;
 			}
 
@@ -227,30 +233,39 @@
 			for (var i = 0; i < field.length; i++) (function(fieldId) {
 				_this.on(document.getElementById(fieldId), "keydown", function(e) {
 					var key = keyNum(e), origin = String.fromCharCode(key), index = 0, shift = e.shiftKey ? e.shiftKey : ((key === 16) ? true : false), ctrl = e.ctrlKey ? e.ctrlKey : ((key === 17) ? true : false);
+
 					if (ctrl) {
 						return;
 					}
+
 					if (key === 20) {
 						(capsLock ) ? capsLock = false : capsLock = true;
 					}
+
 					if (key === 192) {
 						if (check) {
 							e.preventDefault();
 							(document.getElementById(chbox).checked ) ? document.getElementById(chbox).checked = false : document.getElementById(chbox).checked = true;
 						}
 					}
+
 					if (check && !document.getElementById(chbox).checked) {
 						return;
 					}
+
 					(shift || capsLock ) ? origin = origin.toUpperCase() : origin = origin.toLowerCase();
+
 					if (chars[type]["alphabet"].indexOf(origin) === -1) {
 						return;
 					}
+
 					index = chars[type]["alphabet"].indexOf(origin);
+
 					if (key >= 65 && key <= 90) {
 						e.preventDefault();
 						frameInto(String.fromCharCode(chars[type]["level"] + index), fieldId);
 					}
+
 					return;
 				});
 			})(field[i]);
