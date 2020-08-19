@@ -10,7 +10,7 @@ Full Georgian Keyboard ( მხედრული/Mkhedruli, ასომთა�
 
 <b>Besides Writing With Desired Alphabet, Text Conversion Is Supported As Well. Enjoy ...</b>
 
-<a href="//tnanoba.github.io/GEOKEY/">Demonstration</a>
+<a href="//nanobash.github.io/GEOKEY/">Demonstration</a>
 
 Georgian Keyboard 1.0 Instructions
 ----------------------------------
